@@ -1,3 +1,5 @@
+import fetch from "node-fetch";
+
 const token = process.env.vyagutaToken;
 const today = new Date();
 const isFriday = today.getDay() === 5;
@@ -36,8 +38,16 @@ const options = {
   mode: "cors",
   credentials: "include",
 };
-try {
-  fetch(url, headers);
-} catch (error) {
-  console.log("error", error);
-}
+
+fetch(endpoint, options)
+  .then((resp) => {
+    if (resp.ok) {
+      console.log(`Work log submitted for ${today}`);
+    } else {
+      console.error(resp.status, resp.statusText);
+      throw Error(`${resp.status} - ${resp.statusText}`);
+    }
+  })
+  .catch((err) => {
+    console.log(err);
+  });

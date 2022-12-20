@@ -1,0 +1,23 @@
+{
+  "name": "crontendance",
+  "version": "1.0.0",
+  "description": "Cronjob to hit attendance",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sbimochan/crontendance.git"
+  },
+  "author": "Bimochan Shrestha",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sbimochan/crontendance/issues"
+  },
+  "homepage": "https://github.com/sbimochan/crontendance#readme",
+  "dependencies": {
+    "node-fetch": "^3.3.0"
+  }
+}
