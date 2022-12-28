@@ -6,7 +6,7 @@ import { APIS, FILE_PATHS, LOCATIONS, HEADERS, OPTIONS } from '../constants/cons
 
 export async function updateAttendance() {
   const { NPTDate: workDate, NPT } = getNPTDate();
-  const location = NPT.getDay() === 5 ? LOCATIONS.OFFICE : LOCATIONS.HOME;
+  const location = [4,5].includes(NPT.getDay()) ? LOCATIONS.OFFICE : LOCATIONS.HOME;
 
   const data = readFileSync(FILE_PATHS.KEYS)
   const keys = JSON.parse(data)
