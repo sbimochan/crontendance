@@ -6,7 +6,7 @@ export const FILE_PATHS = {
 
 export const APIS = {
   AUTH: "https://vyaguta.lftechnology.com/api/auth/authorize",
-  ATTENDANCE: "https://attendance.vyaguta.lftechnology.com/api/leave/worklogs",
+  ATTENDANCE: "https://vyaguta.lftechnology.com/api/leave/worklogs",
 };
 
 export const OFFSET = {
