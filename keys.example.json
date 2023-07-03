@@ -2,11 +2,13 @@
   {
     "name": "Kritish Dhaubanjar",
     "accessToken": "<ACCESSS_TOKEN>",
-    "refreshToken": "<REFRESH_TOKEN>"
+    "refreshToken": "<REFRESH_TOKEN>",
+    "locations": [null, "HOME", "HOME", "HOME", "HOME", "OFFICE", null]
   },
   {
     "name": "Bimochan Shrestha",
     "accessToken": "<ACCESSS_TOKEN>",
-    "refreshToken": "<REFRESH_TOKEN>"
+    "refreshToken": "<REFRESH_TOKEN>",
+    "locations": [null, "OFFICE", "OFFICE", "HOME", "HOME", "HOME", null]
   }
 ]

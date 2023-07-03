@@ -2,16 +2,17 @@ import fetch from "node-fetch";
 import { readFileSync } from 'fs';
 import { log } from '../utilities/log.js';
 import { getNPTDate } from '../utilities/date.js';
-import { APIS, FILE_PATHS, LOCATIONS, HEADERS, OPTIONS } from '../constants/constants.js';
+import { APIS, FILE_PATHS, HEADERS, OPTIONS } from '../constants/constants.js';
 
 export async function updateAttendance() {
   const { NPTDate: workDate, NPT } = getNPTDate();
-  const location = [4,5].includes(NPT.getDay()) ? LOCATIONS.OFFICE : LOCATIONS.HOME;
 
   const data = readFileSync(FILE_PATHS.KEYS)
   const keys = JSON.parse(data)
 
-  keys.map(async ({ name, accessToken }) => {
+  keys.map(async ({ name, accessToken, locations = [] }) => {
+    const location = locations[NPT.getDay()];
+
     HEADERS['authorization'] = `Bearer ${accessToken}`;
 
     OPTIONS['headers'] = HEADERS;
