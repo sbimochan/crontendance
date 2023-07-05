@@ -7,7 +7,7 @@ export async function generateAuthenticationTokens() {
   const data = readFileSync(FILE_PATHS.KEYS);
   const keys = JSON.parse(data);
 
-  const promises = keys.map(async ({ name, refreshToken }) => {
+  const promises = keys.map(async ({ name, refreshToken, locations = [] }) => {
     try {
       const response = await fetch(`${APIS.AUTH}?clientId=lms&token=${refreshToken}`);
 
@@ -18,7 +18,8 @@ export async function generateAuthenticationTokens() {
         return {
           name,
           accessToken,
-          refreshToken
+          refreshToken,
+          locations
         };
       } else {
         log('warn', `failed to fetch access token & refresh token for ${name} ${response.status} ${response.statusText}`);
