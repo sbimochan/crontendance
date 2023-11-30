@@ -2,9 +2,10 @@
 import {
   SecretsManagerClient,
   GetSecretValueCommand,
+  PutSecretValueCommand
 } from "@aws-sdk/client-secrets-manager";
 
-const secretName = "crontendance";
+const secretName = "crontendance/bimochan";
 
 const client = new SecretsManagerClient({
   region: "ap-southeast-2",
@@ -27,16 +28,18 @@ export async function getSecretsFromSecretManager() {
   }
 }
 
-export async function updateSecrets(secretObject, newKey, newValue) {
+export async function updateSecrets(originalKeys, accessToken, refreshToken) {
   const params = {
     SecretId: secretName,
     SecretString: JSON.stringify({
-      ...secretObject,
-      [newKey]: newValue,
+      ...originalKeys,
+      accessToken,
+      refreshToken
     }),
   };
   try {
-    await client.updateSecret(params)
+    const command = new PutSecretValueCommand(params);
+    await client.send(command)
   } catch (error) {
     console.log(' error:', error);
   }

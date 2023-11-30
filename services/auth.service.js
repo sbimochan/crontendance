@@ -19,12 +19,8 @@ export async function generateAuthenticationTokens() {
       } = await response.json();
       log("log", `fetched new access token & refresh token for ${keys.name}`);
 
-      return {
-        name: keys.name,
-        accessToken,
-        refreshToken,
-        locations: keys.locations,
-      };
+      await updateSecrets(keys, accessToken, refreshToken)
+      log("log", `rotated new access token & refresh token for ${keys.name}`);
     } else {
       log(
         "warn",
@@ -35,5 +31,4 @@ export async function generateAuthenticationTokens() {
     log("error", error);
   }
 
-  updateSecrets(data, accessToken, refreshToken)
 };
