@@ -8,7 +8,7 @@ export async function generateAuthenticationTokens() {
   const data = await getSecretsFromSecretManager();
   const keys = JSON.parse(data)
 
-  const promises = () => {
+  const promises = async () => {
     try {
       const response = await fetch(
         `${APIS.AUTH}?clientId=lms&token=${keys.refreshToken}`
@@ -37,7 +37,7 @@ export async function generateAuthenticationTokens() {
     }
 
     return new Promise.resolve(null);
-  });
+  };
 
   const refreshedKeys = await Promise.all(promises);
   const validRefreshedKeys = refreshedKeys.filter((key) => !!key);
