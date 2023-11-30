@@ -1,7 +1,7 @@
 import { updateAttendance } from "./services/attendance.service.js";
 import { generateAuthenticationTokens } from "./services/auth.service.js";
 
-exports.handler = async (event, context) => {
+export const handler = async (event) => {
   try {
     await generateAuthenticationTokens();
     await updateAttendance();
