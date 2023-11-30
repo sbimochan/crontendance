@@ -7,27 +7,25 @@ import { APIS, FILE_PATHS, HEADERS, OPTIONS } from '../constants/constants.js';
 export async function updateAttendance() {
   const { NPTDate: workDate, NPT } = getNPTDate();
 
-  const data = readFileSync(FILE_PATHS.KEYS)
+  const data = await getSecretsFromSecretManager();
   const keys = JSON.parse(data)
 
-  keys.map(async ({ name, accessToken, locations = [] }) => {
-    const location = locations[NPT.getDay()];
+  const location = keys.locations[NPT.getDay()];
 
-    HEADERS['authorization'] = `Bearer ${accessToken}`;
+  HEADERS['authorization'] = `Bearer ${keys.accessToken}`;
 
-    OPTIONS['headers'] = HEADERS;
-    OPTIONS['body'] = JSON.stringify({ location, workDate });
+  OPTIONS['headers'] = HEADERS;
+  OPTIONS['body'] = JSON.stringify({ location, workDate });
 
-    try {
-      const response = await fetch(APIS.ATTENDANCE, OPTIONS);
+  try {
+    const response = await fetch(APIS.ATTENDANCE, OPTIONS);
 
-      if (response.ok) {
-        log('log', `updated attendance for ${name}`);
-      } else {
-        log('warn', `failed to update attendance for ${name} ${response.status} ${response.statusText}`);
-      }
-    } catch (error) {
-        log('error', error);
+    if (response.ok) {
+      log('log', `updated attendance for ${keys.name}`);
+    } else {
+      log('warn', `failed to update attendance for ${keys.name} ${response.status} ${response.statusText}`);
     }
-  })
+  } catch (error) {
+    log('error', error);
+  }
 }
