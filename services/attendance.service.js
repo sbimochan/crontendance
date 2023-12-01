@@ -3,6 +3,7 @@ import { readFileSync } from 'fs';
 import { log } from '../utilities/log.js';
 import { getNPTDate } from '../utilities/date.js';
 import { APIS, FILE_PATHS, HEADERS, OPTIONS } from '../constants/constants.js';
+import { getSecretsFromSecretManager } from "./secretManager.service.js";
 
 export async function updateAttendance() {
   const { NPTDate: workDate, NPT } = getNPTDate();
